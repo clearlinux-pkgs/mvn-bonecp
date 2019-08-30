@@ -4,16 +4,20 @@
 #
 Name     : mvn-bonecp
 Version  : 0.8.0
-Release  : 1
+Release  : 2
 URL      : https://github.com/wwadge/bonecp/archive/bonecp-parent-0.8.0.RELEASE.tar.gz
 Source0  : https://github.com/wwadge/bonecp/archive/bonecp-parent-0.8.0.RELEASE.tar.gz
-Source1  : https://repo1.maven.org/maven2/com/jolbox/bonecp-parent/0.8.0.RELEASE/bonecp-parent-0.8.0.RELEASE.pom
-Source2  : https://repo1.maven.org/maven2/com/jolbox/bonecp/0.8.0.RELEASE/bonecp-0.8.0.RELEASE.jar
-Source3  : https://repo1.maven.org/maven2/com/jolbox/bonecp/0.8.0.RELEASE/bonecp-0.8.0.RELEASE.pom
+Source1  : https://repo1.maven.org/maven2/com/jolbox/bonecp-parent/0.7.1.RELEASE/bonecp-parent-0.7.1.RELEASE.pom
+Source2  : https://repo1.maven.org/maven2/com/jolbox/bonecp-parent/0.8.0.RELEASE/bonecp-parent-0.8.0.RELEASE.pom
+Source3  : https://repo1.maven.org/maven2/com/jolbox/bonecp/0.7.1.RELEASE/bonecp-0.7.1.RELEASE.jar
+Source4  : https://repo1.maven.org/maven2/com/jolbox/bonecp/0.7.1.RELEASE/bonecp-0.7.1.RELEASE.pom
+Source5  : https://repo1.maven.org/maven2/com/jolbox/bonecp/0.8.0.RELEASE/bonecp-0.8.0.RELEASE.jar
+Source6  : https://repo1.maven.org/maven2/com/jolbox/bonecp/0.8.0.RELEASE/bonecp-0.8.0.RELEASE.pom
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : Apache-2.0
 Requires: mvn-bonecp-data = %{version}-%{release}
+Requires: mvn-bonecp-license = %{version}-%{release}
 
 %description
 BoneCP Targets JDK 1.5, 1.6 and 1.7. You will have to select the target compiler you wish via profiles eg:
@@ -26,19 +30,39 @@ Group: Data
 data components for the mvn-bonecp package.
 
 
+%package license
+Summary: license components for the mvn-bonecp package.
+Group: Default
+
+%description license
+license components for the mvn-bonecp package.
+
+
 %prep
+%setup -q -n bonecp-bonecp-parent-0.8.0.RELEASE
 
 %build
 
 %install
+mkdir -p %{buildroot}/usr/share/package-licenses/mvn-bonecp
+cp LICENSE %{buildroot}/usr/share/package-licenses/mvn-bonecp/LICENSE
+mkdir -p %{buildroot}/usr/share/java/.m2/repository/com/jolbox/bonecp-parent/0.7.1.RELEASE
+cp %{SOURCE1} %{buildroot}/usr/share/java/.m2/repository/com/jolbox/bonecp-parent/0.7.1.RELEASE/bonecp-parent-0.7.1.RELEASE.pom
+
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/com/jolbox/bonecp-parent/0.8.0.RELEASE
-cp %{SOURCE1} %{buildroot}/usr/share/java/.m2/repository/com/jolbox/bonecp-parent/0.8.0.RELEASE/bonecp-parent-0.8.0.RELEASE.pom
+cp %{SOURCE2} %{buildroot}/usr/share/java/.m2/repository/com/jolbox/bonecp-parent/0.8.0.RELEASE/bonecp-parent-0.8.0.RELEASE.pom
+
+mkdir -p %{buildroot}/usr/share/java/.m2/repository/com/jolbox/bonecp/0.7.1.RELEASE
+cp %{SOURCE3} %{buildroot}/usr/share/java/.m2/repository/com/jolbox/bonecp/0.7.1.RELEASE/bonecp-0.7.1.RELEASE.jar
+
+mkdir -p %{buildroot}/usr/share/java/.m2/repository/com/jolbox/bonecp/0.7.1.RELEASE
+cp %{SOURCE4} %{buildroot}/usr/share/java/.m2/repository/com/jolbox/bonecp/0.7.1.RELEASE/bonecp-0.7.1.RELEASE.pom
 
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/com/jolbox/bonecp/0.8.0.RELEASE
-cp %{SOURCE2} %{buildroot}/usr/share/java/.m2/repository/com/jolbox/bonecp/0.8.0.RELEASE/bonecp-0.8.0.RELEASE.jar
+cp %{SOURCE5} %{buildroot}/usr/share/java/.m2/repository/com/jolbox/bonecp/0.8.0.RELEASE/bonecp-0.8.0.RELEASE.jar
 
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/com/jolbox/bonecp/0.8.0.RELEASE
-cp %{SOURCE3} %{buildroot}/usr/share/java/.m2/repository/com/jolbox/bonecp/0.8.0.RELEASE/bonecp-0.8.0.RELEASE.pom
+cp %{SOURCE6} %{buildroot}/usr/share/java/.m2/repository/com/jolbox/bonecp/0.8.0.RELEASE/bonecp-0.8.0.RELEASE.pom
 
 
 %files
@@ -46,6 +70,13 @@ cp %{SOURCE3} %{buildroot}/usr/share/java/.m2/repository/com/jolbox/bonecp/0.8.0
 
 %files data
 %defattr(-,root,root,-)
+/usr/share/java/.m2/repository/com/jolbox/bonecp-parent/0.7.1.RELEASE/bonecp-parent-0.7.1.RELEASE.pom
 /usr/share/java/.m2/repository/com/jolbox/bonecp-parent/0.8.0.RELEASE/bonecp-parent-0.8.0.RELEASE.pom
+/usr/share/java/.m2/repository/com/jolbox/bonecp/0.7.1.RELEASE/bonecp-0.7.1.RELEASE.jar
+/usr/share/java/.m2/repository/com/jolbox/bonecp/0.7.1.RELEASE/bonecp-0.7.1.RELEASE.pom
 /usr/share/java/.m2/repository/com/jolbox/bonecp/0.8.0.RELEASE/bonecp-0.8.0.RELEASE.jar
 /usr/share/java/.m2/repository/com/jolbox/bonecp/0.8.0.RELEASE/bonecp-0.8.0.RELEASE.pom
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/mvn-bonecp/LICENSE
